@@ -1,2 +1,6 @@
 This is first file test1. (Commit1)
+<<<<<<< HEAD
 Second line. Changes done (Commit3)
+=======
+Change in project2/test1. (Commit2)
+>>>>>>> e9935efd943bf454afe2cae16819f97418801db3
