@@ -1,0 +1,389 @@
+1. Create two folders project1 and project2 locally. Create a repository in github or bitbucket, name it test_project.
+
+vins:~/Desktop/Bhoomika$ mkdir project
+vins:~/Desktop/Bhoomika$ cd project
+vins:~/Desktop/Bhoomika/project$ mkdir project1 project2
+
+2. Switch to project1
+
+vins:~/Desktop/Bhoomika/project$ cd project1
+vins:~/Desktop/Bhoomika/project/project1$
+vins:~/Desktop/Bhoomika/project/project1$ git init
+Initialized existing Git repository in /Users/vins/Desktop/Bhoomika/project/project1/.git/ 
+
+3. Switch to a new branch - 'staging'.
+
+vins:~/Desktop/Bhoomika/project/project1$ git checkout -b staging
+Switched to a new branch 'staging'
+
+4. Add a file in it - 'test1' and add content to it 'This is first commit'.
+
+vins:~/Desktop/Bhoomika/project/project1$ git status
+On branch staging
+No commits yet
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	test1
+nothing added to commit but untracked files present (use "git add" to track)vins:~/Desktop/Bhoomika/project/project1$ git add test1
+
+vins:~/Desktop/Bhoomika/project/project1$ git commit -m "first commit"
+[staging (root-commit) e1994fd] first commit
+ 1 file changed, 1 insertion(+)
+ create mode 100644 test1
+
+5. Push it to github.
+
+vins:~/Desktop/Bhoomika/project/project1 (staging)$ git remote add origin https://github.com/bhoomika08/test_project.git
+vins:~/Desktop/Bhoomika/project/project1 (staging)$ git push origin staging
+Counting objects: 3, done.
+Writing objects: 100% (3/3), 241 bytes | 241.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To https://github.com/bhoomika08/test_project.git
+ * [new branch]      staging -> staging
+
+6. Move to folder project2.
+
+vins:~/Desktop/Bhoomika/project/project1 (staging)$ cd ..
+vins:~/Desktop/Bhoomika/project$ cd project2
+
+7. Clone the repo in project2.
+
+vins:~/Desktop/Bhoomika/project/project2$ git clone https://github.com/bhoomika08/test_project.git
+Cloning into 'test_project'...
+remote: Counting objects: 3, done.
+remote: Total 3 (delta 0), reused 3 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+
+8. Switch to staging.
+
+vins:~/Desktop/Bhoomika/project/project2/test_project (staging)$ git status
+On branch staging
+Your branch is up-to-date with 'origin/staging'.
+
+9. Change the text in file 'test1' to 'This is second commit'.
+
+vins:~/Desktop/Bhoomika/project/project2/test_project (staging)$ git status
+On branch staging
+Your branch is up-to-date with 'origin/staging'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	modified:   test1
+
+no changes added to commit (use "git add" and/or "git commit -a")
+vins:~/Desktop/Bhoomika/project/project2/test_project (staging)$ git add test1
+
+10. Commit and push to remote branch.
+
+vins:~/Desktop/Bhoomika/project/project2/test_project (staging)$ git commit -m "second commit"
+[staging e9935ef] second commit
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+vins:~/Desktop/Bhoomika/project/project2/test_project (staging)$ git push origin staging
+Counting objects: 3, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 290 bytes | 290.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To https://github.com/bhoomika08/test_project.git
+   e26d2dd..e9935ef  staging -> staging
+
+11.& 12. Move to project1. & Switch to staging branch.
+
+vins:~/Desktop/Bhoomika/project$ cd project1
+vins:~/Desktop/Bhoomika/project/project1 (staging)$
+vins:~/Desktop/Bhoomika/project/project1 (staging)$ git checkout staging
+Already on 'staging' 
+
+13. Change the text in file 'test1' to 'This is third commit'.
+
+vins:~/Desktop/Bhoomika/project/project1 (staging)$ git status
+On branch staging
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+	modified:   test1
+no changes added to commit (use "git add" and/or "git commit -a")
+
+vins:~/Desktop/Bhoomika/project/project1 (staging)$ git add test1
+vins:~/Desktop/Bhoomika/project/project1 (staging)$ git commit -m "third commit"
+[staging b06b2ae] third commit
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+14. Commit and push to remote branch. (Explain what happened here).
+
+vins:~/Desktop/Bhoomika/project/project1 (staging)$ git push origin staging
+To https://github.com/bhoomika08/test_project.git
+ ! [rejected]        staging -> staging (fetch first)
+error: failed to push some refs to 'https://github.com/bhoomika08/test_project.git'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+
+Push is rejected here because second commit is not known to project1 developer so he might be adding conflict to files on remote therefore git first request to pull the changes to local and then push the changes back to remote
+
+vins:~/Desktop/Bhoomika/project/project1 (staging)$ git pull origin staging
+remote: Counting objects: 3, done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 3 (delta 0), reused 3 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+From https://github.com/bhoomika08/test_project
+ * branch            staging    -> FETCH_HEAD
+   e26d2dd..e9935ef  staging    -> origin/staging
+Auto-merging test1
+CONFLICT (content): Merge conflict in test1
+Automatic merge failed; fix conflicts and then commit the result.
+
+vins:~/Desktop/Bhoomika/project/project1 (staging)$ git status
+On branch staging
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+	both modified:   test1
+no changes added to commit (use "git add" and/or "git commit -a")
+
+vins:~/Desktop/Bhoomika/project/project1 (staging)$ git add test1
+vins:~/Desktop/Bhoomika/project/project1 (staging)$ git commit -m "resolving conflict in staging branch"
+[staging e299d41] resolving conflict in staging branch
+
+vins:~/Desktop/Bhoomika/project/project1 (staging)$ git push origin staging
+Counting objects: 3, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 410 bytes | 410.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To https://github.com/bhoomika08/test_project.git
+   e9935ef..e299d41  staging -> staging
+
+15. Switch to master.
+
+vins:~/Desktop/Bhoomika/project/project1 (staging)$ git checkout master
+Switched to branch 'master'
+
+16. Merge staging branch into master.
+
+vins:~/Desktop/Bhoomika/project/project1 (master)$ git merge staging
+Updating e26d2dd..b06b2ae
+Fast-forward
+ test1 | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+17. Create a new branch testing.
+
+vins:~/Desktop/Bhoomika/project/project1 (master)$ git checkout -b testing
+Switched to a new branch 'testing'
+
+18. Change the text to 'A is an alphabet' and commit.
+
+vins:~/Desktop/Bhoomika/project/project1 (testing)$ git status
+On branch testing
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+	modified:   test1
+no changes added to commit (use "git add" and/or "git commit -a")
+vins:~/Desktop/Bhoomika/project/project1 (testing)$ git add test1
+vins:~/Desktop/Bhoomika/project/project1 (testing)$ git commit -m "4th commit"
+[testing 63150fd] 4th commit
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+19. Repeat the 'step 18' seven times and each time update the alphabet 'A' to 'B' to 'C' etc.(Don't forget to commit the change everytime)
+
+vins:~/Desktop/Bhoomika/project/project1 (testing)$ git commit -am "5th commit"
+[testing fafbbf8] 5th commit
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+vins:~/Desktop/Bhoomika/project/project1 (testing)$ git commit -am "6th commit"
+[testing ee40974] 6th commit
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+vins:~/Desktop/Bhoomika/project/project1 (testing)$ git commit -am "7th commit"
+[testing 9bca1bc] 7th commit
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+vins:~/Desktop/Bhoomika/project/project1 (testing)$ git commit -am "8th commit"
+[testing 0486c5f] 8th commit
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+vins:~/Desktop/Bhoomika/project/project1 (testing)$ git commit -am "9th commit"
+[testing 626beca] 9th commit
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+vins:~/Desktop/Bhoomika/project/project1 (testing)$ git commit -am "10th commit"
+[testing d921372] 10th commit
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+vins:~/Desktop/Bhoomika/project/project1 (testing)$ git commit -am "11th commit"
+[testing 5779d81] 11th commit
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+20. Push the branch to github.
+
+vins:~/Desktop/Bhoomika/project/project1 (testing)$ git push origin testing
+Counting objects: 30, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (19/19), done.
+Writing objects: 100% (30/30), 2.13 KiB | 1.07 MiB/s, done.
+Total 30 (delta 8), reused 0 (delta 0)
+remote: Resolving deltas: 100% (8/8), done.
+To https://github.com/bhoomika08/test_project.git
+ * [new branch]      testing -> testing
+
+21. Checkout to master.
+
+vins:~/Desktop/Bhoomika/project/project1 (testing)$ git checkout master
+Switched to branch 'master'
+
+22. Change the text '1 is a number' and commit.
+
+vins:~/Desktop/Bhoomika/project/project1 (master)$ git commit -am "12th commit"
+[master adf4a5e] 12th commit
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+23. Repeat the 'step 22' seven times and each time update the number '1' to '2' to '3' etc.(Don't forget to commit the change everytime)
+
+vins:~/Desktop/Bhoomika/project/project1 (master)$ git commit -am "13th commit"
+[master 2bb997e] 13th commit
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+vins:~/Desktop/Bhoomika/project/project1 (master)$ git commit -am "14th commit"
+[master 17a4604] 14th commit
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+vins:~/Desktop/Bhoomika/project/project1 (master)$ git commit -am "15th commit"
+[master b6b229a] 15th commit
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+vins:~/Desktop/Bhoomika/project/project1 (master)$ git commit -am "16th commit"
+[master cacc282] 16th commit
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+vins:~/Desktop/Bhoomika/project/project1 (master)$ git commit -am "17th commit"
+[master eee4757] 17th commit
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+vins:~/Desktop/Bhoomika/project/project1 (master)$ git commit -am "18th commit"
+[master f28bb23] 18th commit
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+vins:~/Desktop/Bhoomika/project/project1 (master)$ git commit -am "19th commit"
+[master 3ca1b38] 19th commit
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+24. Push master branch to github.
+
+vins:~/Desktop/Bhoomika/project/project1 (master)$ git push origin master
+Counting objects: 24, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (16/16), done.
+Writing objects: 100% (24/24), 1.73 KiB | 1.73 MiB/s, done.
+Total 24 (delta 7), reused 0 (delta 0)
+remote: Resolving deltas: 100% (7/7), done.
+To https://github.com/bhoomika08/test_project.git
+ * [new branch]      master -> master
+
+25. Now, rebase testing into master(and don't push the new master and testing branch).
+
+vins:~/Desktop/Bhoomika/project/project1 (master)$ git rebase testing
+First, rewinding head to replay your work on top of it...
+Applying: 12th commit
+Using index info to reconstruct a base tree...
+M	test1
+Falling back to patching base and 3-way merge...
+Auto-merging test1
+CONFLICT (content): Merge conflict in test1
+error: Failed to merge in the changes.
+Patch failed at 0001 12th commit
+The copy of the patch that failed is found in: .git/rebase-apply/patch
+
+When you have resolved this problem, run "git rebase --continue".
+If you prefer to skip this patch, run "git rebase --skip" instead.
+To check out the original branch and stop rebasing, run "git rebase --abort".
+
+vins:~/Desktop/Bhoomika/project/project1 ((no branch, rebasing master))$ git add test1
+vins:~/Desktop/Bhoomika/project/project1 ((no branch, rebasing master))$ git rebase --continue
+Applying: 12th commit
+Applying: 13th commit
+Using index info to reconstruct a base tree...
+M	test1
+Falling back to patching base and 3-way merge...
+Auto-merging test1
+CONFLICT (content): Merge conflict in test1
+error: Failed to merge in the changes.
+Patch failed at 0002 13th commit
+The copy of the patch that failed is found in: .git/rebase-apply/patch
+
+When you have resolved this problem, run "git rebase --continue".
+If you prefer to skip this patch, run "git rebase --skip" instead.
+To check out the original branch and stop rebasing, run "git rebase --abort".
+
+vins:~/Desktop/Bhoomika/project/project1 ((no branch, rebasing master))$ git add test1
+vins:~/Desktop/Bhoomika/project/project1 ((no branch, rebasing master))$ git rebase --continue
+Applying: 13th commit
+Applying: 14th commit
+Using index info to reconstruct a base tree...
+M	test1
+Falling back to patching base and 3-way merge...
+Auto-merging test1
+CONFLICT (content): Merge conflict in test1
+error: Failed to merge in the changes.
+Patch failed at 0003 14th commit
+The copy of the patch that failed is found in: .git/rebase-apply/patch
+
+When you have resolved this problem, run "git rebase --continue".
+If you prefer to skip this patch, run "git rebase --skip" instead.
+To check out the original branch and stop rebasing, run "git rebase --abort".
+
+vins:~/Desktop/Bhoomika/project/project1 ((no branch, rebasing master))$ git add test1
+vins:~/Desktop/Bhoomika/project/project1 ((no branch, rebasing master))$ git rebase --continue
+Applying: 14th commit
+Applying: 15th commit
+Using index info to reconstruct a base tree...
+M	test1
+Falling back to patching base and 3-way merge...
+Auto-merging test1
+CONFLICT (content): Merge conflict in test1
+error: Failed to merge in the changes.
+Patch failed at 0004 15th commit
+The copy of the patch that failed is found in: .git/rebase-apply/patch
+
+When you have resolved this problem, run "git rebase --continue".
+If you prefer to skip this patch, run "git rebase --skip" instead.
+To check out the original branch and stop rebasing, run "git rebase --abort".
+
+vins:~/Desktop/Bhoomika/project/project1 ((no branch, rebasing master))$ git add test1
+vins:~/Desktop/Bhoomika/project/project1 ((no branch, rebasing master))$ git rebase --continue
+Applying: 15th commit
+Applying: 16th commit
+Applying: 17th commit
+Applying: 18th commit
+Applying: 19th commit
+vins:~/Desktop/Bhoomika/project/project1 (master)$ git status
+On branch master
+nothing to commit, working tree clean
+
+26. Move to project2.
+
+vins:~/Desktop/Bhoomika/project/project1 (master)$ cd ..
+vins:~/Desktop/Bhoomika/project$ cd project2
+
+27. Track testing branch.
+
+vins:~/Desktop/Bhoomika/project/project2/test_project (staging)$ git fetch
+remote: Counting objects: 54, done.
+remote: Compressing objects: 100% (21/21), done.
+remote: Total 54 (delta 17), reused 52 (delta 15), pack-reused 0
+Unpacking objects: 100% (54/54), done.
+From https://github.com/bhoomika08/test_project
+   e9935ef..e299d41  staging    -> origin/staging
+ * [new branch]      master     -> origin/master
+ * [new branch]      testing    -> origin/testing
+vins:~/Desktop/Bhoomika/project/project2/test_project (staging)$ git branch testing --track origin/testing
+Branch testing set up to track remote branch testing from origin.
+
+28. Checkout to master.
+
+vins:~/Desktop/Bhoomika/project/project2/test_project (staging)$ git checkout -b master
+Switched to a new branch 'master'
+
+29. Merge branch testing into master.
+
+vins:~/Desktop/Bhoomika/project/project2/test_project (master)$ git merge testing
+Already up-to-date.
+
+30. Share your views about the difference between master and testing.
+
+testing branch is tracking remote branch origin/testing therefore whenever we will add any commit to our local testing it will show that the message "your branch is ahead of origin/testing by 1 commit" and testing branch is always checked whether it is up-to-date with ‘origin/testing’ whereas master is a simple branch.
