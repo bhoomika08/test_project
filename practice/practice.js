@@ -4,13 +4,12 @@ class Practice {
   }
 
   init() {
-  	this.fun();
+    this.fun();
   }
 
   fun() {
     console.log("Fun"); 	
   }
-
 }
 
 new Practice().init();
