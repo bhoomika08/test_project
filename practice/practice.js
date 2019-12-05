@@ -1,6 +1,6 @@
 class Practice {
   constructor() {
-	  this.elements = "";
+  	this.elements = "";
   }
 
   init() {
@@ -10,7 +10,6 @@ class Practice {
   fun() {
   	console.log("Fun"); 	
   }
-
 }
 
 new Practice().init();
