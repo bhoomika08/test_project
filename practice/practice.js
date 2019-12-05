@@ -1,6 +1,6 @@
 class Practice {
-	constructor() {
-  this.elements = "";
+  constructor() {
+    this.elements = "";
   }
 
   init() {
